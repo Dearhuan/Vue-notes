@@ -108,3 +108,56 @@ babel默认只转换语法,而不转换新的API,如需使用新的API,还需要
 优点：1.良好的交互式体验。意思是：用户无需刷新页面，获取数据通过异步ajax获取，页面显示流畅2.良好的前后端分离模式（MVVM），减轻服务端压力。服务器只需要输出数据就可以，不用管逻辑和页面展示，吞吐能力会提高几倍3.共用同一套后端程序代码，不用修改就可用于web界面，手机和平板等客户端设备
 缺点：1.不利于SEO优化2.由于单页应用在一个页面中显示，所以不可以使用浏览器自带的前进后退功能，想要实现页面切换需要自己进行管理3.首屏加载过慢（初次加载耗时多），原因是：为了实现单页web应用功能及展示效果，在页面初始化的时候就会将js，css等统一加载，部分页面在需要时加载。当然也有解决方法。
 解决方法：①使用路由懒加载 ②开启Gzip压缩 ③使用webpack的externals属性把不需要的库文件分离出去，减少打包后文件的大小 ④使用vue的服务端渲染（SSR）举例spa应用：网易云音乐、QQ音乐等
+
+#### 18.第一次加载页面时会触发哪几个钩子？
+
+beforeCreate, created, beforeMount, mounted
+
+
+#### 19.什么是双向绑定？原理是什么？
+双向数据绑定个人理解就是存在data→view,view→data两条数据流的模式。其实可以简单的理解为change和bind的结合。目前双向数据绑定都是基于Object.defineProperty()重新定义get和set方法实现的。修改触发set方法赋值，获取触发get方法取值，并通过数据劫持发布信息.
+
+
+#### 20.vuex中actions和mutations有什么区别？
+mutations可以直接修改state，但只能包含同步操作，同时，只能通过提交commit调用(尽量通过Action或mapMutation调用而非直接在组件中通过this.$store.commit()提交)actions是用来触发mutations的，它无法直接改变state，它可以包含异步操作，它只能通过store.dispatch触发
+
+#### 21.vue组件之间的通信都有哪些？
+
+父子Coms: props,$emit/$on,($parent/$children)/$refs
+兄弟Coms: Vuex,Bus
+跨级Coms: Vuex,Bus,(provide/inject),($attrs/$listeners)
+#### 22.vue-router有哪几种导航钩子（ 导航守卫 ）？
+
+三种导航钩子：
+1.全局导航钩子：router.beforeEach(to,from,next) 作用：跳转前进行判断拦截
+2.组件内的钩子
+3.单独路由独享组件
+
+
+#### 23.如何获取路由传过来的参数？
+[vue-router query和params传参(接收参数)，$router、$route的区别](
+https://www.cnblogs.com/zhangruiqi/p/9412539.html)
+如果使用query方式传入的参数使用this.$route.query 接收
+如果使用params方式传入的参数使用this.$route.params接收
+
+
+#### 24.Vue怎样实现路由懒加载？
+```
+//使用箭头函数动态import相应的组件
+component: () => import( '../views/mine.vue')
+```
+#### 25.route和router有什么区别？
+route代表当前路由对象，router代表整个vue实例下的路由对象
+#### 26.异步执行的运行机制
+
+（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
+（2）主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
+（3）一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+（4）主线程不断重复上面的第三步。
+#### 27.vue中的nextTick
+
+应用场景：需要在视图更新之后，基于新的视图进行操作。
+
+需要注意的是，在 created 和 mounted 阶段，如果需要操作渲染后的试图，也要使用 nextTick 方法。
+
+#### 28.[vue项目前端限制页面长时间未操作超时退出到登录页](https://www.cnblogs.com/steamed-twisted-roll/p/11851658.html)
