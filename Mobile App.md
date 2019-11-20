@@ -29,5 +29,8 @@ Vant 中部分组件提供了`safe-area-inset-bottom`属性，设置该属性后
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 <!-- 开启 safe-area-inset-bottom 属性 -->
 <van-number-keyboard safe-area-inset-bottom />
-
 ![alt text](https://b.yzcdn.cn/vant/safearea.png)
+
+6.微信小程序搜索框value值双向绑定异常问题
+
+基础库版本为2.9.3时，input组件输入值得时候，bind:change方法无法监听值得改变，最后将版本号降低
