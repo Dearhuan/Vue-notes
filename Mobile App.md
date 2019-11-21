@@ -34,3 +34,5 @@ Vant 中部分组件提供了`safe-area-inset-bottom`属性，设置该属性后
 6.微信小程序搜索框value值双向绑定异常问题
 
 基础库版本为2.9.3时，input组件输入值得时候，bind:change方法无法监听值得改变，最后将版本号降低
+
+7.使用axios发送POST请求时，会先发送一个OPTION请求用于检查是否跨域、网络信息，如果OPTION请求失败，后面不会发送POST请求；OPTION成功，则继续发送POST请求；原生ajax和jQuery中的ajax没有这个情况。
